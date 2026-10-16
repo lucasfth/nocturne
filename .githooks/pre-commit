@@ -1,0 +1,11 @@
+#!/bin/sh
+# Blocks commits that contain secrets or runtime files. Enable once per clone:
+#   git config core.hooksPath .githooks
+set -e
+bad=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '(^|/)(data/|config\.json$|\.phoenix/|phoenix\.conf$|seed\.dat$)|\.(sqlite|db|key|pem|secret|sha256)$' || true)
+if [ -n "$bad" ]; then echo "pre-commit: refusing runtime/secret files:"; echo "$bad"; exit 1; fi
+if command -v gitleaks >/dev/null 2>&1; then
+  gitleaks git --staged --redact --no-banner --config .gitleaks.toml
+else
+  echo "pre-commit: gitleaks not installed; CI will still scan. https://github.com/gitleaks/gitleaks" >&2
+fi

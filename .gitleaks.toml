@@ -1,0 +1,28 @@
+title = "nocturne gitleaks config"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "nocturne-bip39-seed"
+description = "Looks like a 12/24 word seed phrase"
+regex = '''(?i)\b(seed|mnemonic|words?)\b[^\n]{0,20}[:=]\s*["']?([a-z]{3,8}\s+){11,23}[a-z]{3,8}'''
+
+[[rules]]
+id = "nocturne-nostr-nsec"
+description = "Nostr private key"
+regex = '''\bnsec1[0-9a-z]{58}\b'''
+
+[[rules]]
+id = "nocturne-lightning-invoice"
+description = "Lightning invoice (can leak payment details)"
+regex = '''\blnbc[0-9a-z]{50,}\b'''
+
+[[rules]]
+id = "nocturne-bearer"
+description = "Hard-coded bearer token"
+regex = '''(?i)authorization['"]?\s*[:=]\s*['"]bearer\s+[A-Za-z0-9_\-\.=]{20,}'''
+
+[allowlist]
+description = "test fixtures and lockfiles"
+paths = ['''uv\.lock''', '''package-lock\.json''', '''bun\.lock''', '''go\.sum''', '''LICENSE''']

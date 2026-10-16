@@ -1,0 +1,59 @@
+# ---- secrets and runtime state: never commit ----
+# Runtime data (ledger, API key hashes, worker secrets, admin secret, invoices)
+data/
+/config.json
+config.*.json
+!config.example.json
+*.env
+.env*
+!.env.example
+# key material
+*.key
+*.pem
+*.p12
+*.pfx
+*.secret
+*secret*.txt
+*.sha256
+id_rsa*
+id_ed25519*
+*_key
+*_key.pub
+tunnel_key*
+known_hosts
+authorized_keys*
+# Lightning / phoenixd
+.phoenix/
+phoenix.conf
+seed.dat
+*.mainnet.*.db
+*.macaroon
+# databases and backups
+*.sqlite
+*.sqlite-*
+*.db
+*.bak
+*.bak-*
+*.orig
+*.jsonl
+# logs
+*.log
+logs/
+
+# ---- build / tooling ----
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+web/dist/
+/bin/
+/dist/
+*.test
+coverage/
+
+# ---- editors / os ----
+.DS_Store
+.idea/
+.vscode/
+*.swp

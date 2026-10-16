@@ -1,0 +1,10 @@
+[project]
+name = "nocturne"
+version = "0.1.0"
+requires-python = ">=3.12"
+license = "AGPL-3.0-or-later"
+authors = [{name = "Lucas Hanson", email = "online@lucashanson.dk"}]
+dependencies = ["fastapi", "uvicorn", "httpx", "pydantic", "pytest"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

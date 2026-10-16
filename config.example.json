@@ -1,0 +1,59 @@
+{
+ "model": "Ornith-1.5-9B",
+ "max_input_chars": 120000,
+ "max_tokens": 4096,
+ "max_context": 32768,
+ "request_timeout_s": 420,
+ "queue_depth": 48,
+ "signup_invite": "CHANGE-ME",
+ "max_body_bytes": 262144,
+ "body_read_timeout_s": 15,
+ "body_idle_timeout_s": 5,
+ "public_limit_concurrency": 64,
+ "public_ip_rate_per_minute": 20,
+ "chat_ip_rate_per_minute": 60,
+ "lightning": {
+  "backend": "phoenixd",
+  "min_msat": 1000,
+  "max_msat": 100000000,
+  "expiry_s": 3600,
+  "base_url": "http://127.0.0.1:9740"
+ },
+ "service_name": "nocturne",
+ "per_key_max_concurrent": 4,
+ "dkk_per_btc": 100000,
+ "schedule": {
+  "tz": "Europe/Copenhagen",
+  "start": "17:30",
+  "end": "08:00",
+  "grace_min": 20
+ },
+ "energy": {
+  "price_area": "DK2",
+  "source": "energidataservice",
+  "refresh_min": 30,
+  "watts_per_worker": 20,
+  "tariff_dkk_per_kwh": 1.2,
+  "tiers": {
+   "cheap_max_dkk_kwh": 1.0,
+   "normal_max_dkk_kwh": 2.5
+  }
+ },
+ "default_thinking_budget": 512,
+ "admin_tailnet_logins": [
+  "you@github"
+ ],
+ "open_signup": true,
+ "trial_credit_msat": 20000,
+ "trials_per_day": 100,
+ "signup_per_ip_per_day": 3,
+ "internal_keys": [
+  "demo"
+ ],
+ "public_base_url": "https://your-host.example.ts.net:8443",
+ "bulk_keys": [
+  "bulk-example"
+ ],
+ "bulk_slots_per_worker": 1,
+ "bulk_queue_depth": 16
+}
