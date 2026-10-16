@@ -1,0 +1,217 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "nocturne",
+  "version": "1.0",
+  "description": "OpenAI-compatible chat completions, paid per request over Lightning. Open roughly 17:30-08:00 Europe/Copenhagen."
+ },
+ "servers": [
+  {
+   "url": "{{BASE}}"
+  }
+ ],
+ "components": {
+  "securitySchemes": {
+   "bearer": {
+    "type": "http",
+    "scheme": "bearer"
+   }
+  }
+ },
+ "paths": {
+  "/v1/status": {
+   "get": {
+    "summary": "Live capacity and opening window",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/v1/models": {
+   "get": {
+    "summary": "Model list",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/v1/pricing": {
+   "get": {
+    "summary": "Prices in msat per 1k tokens",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    }
+   }
+  },
+  "/v1/keys": {
+   "post": {
+    "summary": "Create an API key (returned once)",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    },
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object"
+       }
+      }
+     }
+    }
+   }
+  },
+  "/v1/credits/invoice": {
+   "post": {
+    "summary": "Create a Lightning invoice",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    },
+    "security": [
+     {
+      "bearer": []
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "required": [
+         "amount_msat"
+        ],
+        "properties": {
+         "amount_msat": {
+          "type": "integer",
+          "minimum": 1000
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "/v1/credits/invoice/{invoice_id}": {
+   "get": {
+    "summary": "Invoice state: pending, paid or expired",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    },
+    "security": [
+     {
+      "bearer": []
+     }
+    ],
+    "parameters": [
+     {
+      "name": "invoice_id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ]
+   }
+  },
+  "/v1/credits/balance": {
+   "get": {
+    "summary": "Key balance in msat",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    },
+    "security": [
+     {
+      "bearer": []
+     }
+    ]
+   }
+  },
+  "/v1/chat/completions": {
+   "post": {
+    "summary": "OpenAI-format chat completion; stream supported",
+    "responses": {
+     "200": {
+      "description": "OK"
+     }
+    },
+    "security": [
+     {
+      "bearer": []
+     }
+    ],
+    "requestBody": {
+     "required": true,
+     "content": {
+      "application/json": {
+       "schema": {
+        "type": "object",
+        "required": [
+         "model",
+         "messages"
+        ],
+        "properties": {
+         "model": {
+          "type": "string",
+          "const": "{{MODEL}}"
+         },
+         "messages": {
+          "type": "array",
+          "items": {
+           "type": "object"
+          }
+         },
+         "max_tokens": {
+          "type": "integer",
+          "maximum": 4096
+         },
+         "stream": {
+          "type": "boolean"
+         },
+         "temperature": {
+          "type": "number"
+         },
+         "top_p": {
+          "type": "number"
+         },
+         "stop": {},
+         "presence_penalty": {
+          "type": "number"
+         },
+         "frequency_penalty": {
+          "type": "number"
+         },
+         "reasoning_effort": {
+          "type": "string",
+          "enum": [
+           "none",
+           "low",
+           "medium",
+           "high"
+          ]
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

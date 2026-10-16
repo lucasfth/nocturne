@@ -1,0 +1,22 @@
+# nocturne
+
+> Small OpenAI-compatible LLM API served at night by a handful of idle Mac laptops. No account; pay per request in sats over Lightning.
+
+- Base URL: {{BASE}}/v1
+- Model: {{MODEL}} (9B, Q4_K_M). Text chat only: no tools, images or embeddings.
+- Context: 32,768 tokens per request; max_tokens up to 4096.
+- Thinking: `reasoning_effort` = none | low | medium | high. Thinking tokens bill as output.
+- Speed: about 18-23 tokens/s per request, one or two requests per machine at a time.
+- Hours: roughly 17:30-08:00 Europe/Copenhagen. Otherwise 503 with Retry-After. Live state: GET /v1/status.
+- Prices: GET /v1/pricing (msat per 1k tokens, with a per-request minimum).
+- Privacy: prompts and outputs are not logged; only token counts per key.
+
+## Flow
+1. POST /v1/keys with `{}` -> API key, shown once. New keys may get a small trial credit.
+2. POST /v1/credits/invoice `{"amount_msat": N}` -> BOLT11 invoice. Poll GET /v1/credits/invoice/{id}.
+3. POST /v1/chat/completions with `Authorization: Bearer <key>`, OpenAI format, `stream` supported.
+
+## Errors
+400 unsupported parameter (tools, tool_choice, logit_bias, seed, n>1, wrong model) · 402 insufficient credit · 429 rate limit · 503 closed or busy.
+
+- [OpenAPI spec]({{BASE}}/openapi.json)

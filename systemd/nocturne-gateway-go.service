@@ -1,0 +1,24 @@
+[Unit]
+Description=nocturne inference coordinator (opt-in Go runtime)
+After=network.target
+Conflicts=nocturne-gateway.service
+
+[Service]
+ExecStart=%h/nocturne/bin/nocturne serve
+Environment=SERVICE_ROOT=%h/nocturne
+TimeoutStopSec=15
+WorkingDirectory=%h/nocturne
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/nocturne/data
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+IPAddressDeny=any
+IPAddressAllow=localhost
+
+[Install]
+WantedBy=default.target

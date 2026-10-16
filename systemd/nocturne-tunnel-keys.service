@@ -1,0 +1,16 @@
+[Unit]
+Description=nocturne: install worker tunnel keys from the machine registry
+
+# Every invocation waits at least 3 seconds, so healthy starts cannot exhaust
+# this safety limit (including continuous CRUD). Keep crash-loop protection.
+StartLimitIntervalSec=30
+StartLimitBurst=15
+
+[Service]
+Type=oneshot
+ExecStart=%h/nocturne/.venv/bin/python %h/nocturne/tools/sync-tunnel-keys.py --settle-seconds 3
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ReadWritePaths=%h/.ssh

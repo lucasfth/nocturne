@@ -1,0 +1,9 @@
+[Unit]
+Description=nocturne: watch the machine registry for tunnel key changes
+
+[Path]
+PathChanged=%h/nocturne/data/machines.json
+Unit=nocturne-tunnel-keys.service
+
+[Install]
+WantedBy=default.target
