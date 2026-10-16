@@ -1,0 +1,43 @@
+{
+  "server": "./local/llama-server",
+  "runtime_s": 600,
+  "tokens": 128,
+  "repeats": 2,
+  "disk_floor_gb": 10,
+  "min_prefill_tps": 100,
+  "min_decode_tps": 15,
+  "min_headroom_pct": 20,
+  "max_swap_growth_mb": 0,
+  "profiles": [
+    {
+      "context": 32768,
+      "parallel": 2,
+      "spec_n": 2
+    }
+  ],
+  "candidates": [
+    {
+      "path": "./local/small.gguf",
+      "parameters": 3000000000,
+      "quantization": "Q6_K"
+    },
+    {
+      "path": "./local/medium.gguf",
+      "parameters": 7000000000,
+      "quantization": "Q6_K"
+    },
+    {
+      "path": "./local/large.gguf",
+      "parameters": 14000000000,
+      "quantization": "Q6_K"
+    }
+  ],
+  "min_context": 8192,
+  "allowed_quantizations": [
+    "Q5_K_M",
+    "Q6_K",
+    "Q8_0",
+    "F16",
+    "BF16"
+  ]
+}

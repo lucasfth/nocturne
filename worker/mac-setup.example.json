@@ -1,0 +1,7 @@
+{
+  "worker_id": "mac-example",
+  "gateway_host": "gateway.example.invalid",
+  "gateway_ssh_user": "operator",
+  "gateway_host_public_key_file": "gateway-host.pub",
+  "operator_public_key_files": ["operator.pub"]
+}
