@@ -1,0 +1,62 @@
+{
+  "sourceSheet": "nocturne-logo-options---4b7d1c26-a626-4ff1-9a3e-152c8f39bbe3.png",
+  "sourceSheetSha256": "7dd66bc456780c1e9829644ff46ab8c485685818fee56a6ffd57380a1a7744f3",
+  "sourceSheetSize": [
+    1254,
+    1254
+  ],
+  "selection": "OPTION 2, MIDDLE of FIRST THREE-OPTION SHEET; corrected 2026-10-16 08:36 UTC",
+  "crop": {
+    "left": 442,
+    "top": 442,
+    "width": 368,
+    "height": 368
+  },
+  "rotationDegreesCounterclockwise": 90,
+  "originalCropSha256": "50be97bc0923fb7cb8ce9cb84bb9940787f96304db328b604e95377f1c5645c8",
+  "rotatedPngSha256": "35957fdac390a8754998942c0df0ae4a2750ff78cee6540419fa2436701b7c01",
+  "objectiveCropProof": {
+    "threshold": "4-connected foreground alpha>=8 and maxRGB>5",
+    "middleBadge": {
+      "pixels": 118374,
+      "bboxInclusive": [
+        451,
+        450,
+        802,
+        797
+      ],
+      "paddingLTRB": [
+        9,
+        8,
+        7,
+        12
+      ]
+    },
+    "leftNeighborBbox": [
+      54,
+      450,
+      405,
+      797
+    ],
+    "rightNeighborBbox": [
+      848,
+      450,
+      1199,
+      797
+    ],
+    "excludedMiddleLabel": {
+      "pixels": 332,
+      "bboxInclusive": [
+        617,
+        821,
+        635,
+        848
+      ]
+    },
+    "cropBottom": 809,
+    "cropRight": 809,
+    "noForegroundClipped": true
+  },
+  "pixelCheck": "All135424 RGBA pixels verified destination[y,x] = source[x,367-y]",
+  "visualInspection": "Unavailable; deterministic component and pixel verification only"
+}

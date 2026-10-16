@@ -1,0 +1,21 @@
+=== nocturne mac report v2026-10-13.2 ===
+owner_name:     Example Owner
+computer_name:  Example MacBook
+ssh_user:       example
+hostname:       Example-MacBook.local
+lan_ip:         192.0.2.25  (wifi: ExampleNetwork)
+wifi_mac:       00:00:00:00:00:00
+tailscale_ip:   not installed
+ssh_hostkey:    SHA256:EXAMPLE_FINGERPRINT_NOT_A_TUNNEL_KEY
+remote_login:   on
+keys_present:   2/2 nocturne keys (2 total)
+admin_user:     nocturne-admin (present, sudo unchecked)
+lid_sleep_off:  1   ac_sleep: 0
+power:          AC Power 100%
+model:          Mac16,1  Apple M4  16 GB
+macos:          15.0
+filevault:      FileVault is On.
+disk_free:      100 GB
+ssh_command:    ssh example@Example-MacBook.local
+ssh_admin:      ssh nocturne-admin@Example-MacBook.local
+=== end ===

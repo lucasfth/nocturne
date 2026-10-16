@@ -1,0 +1,25 @@
+import { test, expect } from '@playwright/test'
+test('real Python coordinator serves production UI and persists live/restart settings with auth and stale-write protection',async({page,request})=>{
+ const base='http://127.0.0.1:5200'
+ await page.goto(base+'/admin')
+ await page.getByLabel('Admin secret',{exact:true}).fill('browser-test'); await page.getByRole('button',{name:'Open',exact:true}).click()
+ await page.getByRole('tab',{name:'Settings',exact:true}).click()
+ await expect(page.getByLabel('Service name',{exact:true})).toHaveValue('Fixture inference')
+ const headers={Authorization:'Bearer browser-test'}
+ const before=await (await request.get(base+'/admin/config',{headers})).json()
+ await page.getByLabel('Service name',{exact:true}).fill('Real UI inference')
+ await page.getByLabel('Public concurrency limit',{exact:true}).fill('24')
+ await page.getByRole('button',{name:'Save settings',exact:true}).click()
+ await expect(page.getByTestId('effective-service_name')).toHaveText('Effective: Real UI inference')
+ await expect(page.getByText('Restart pending: Public concurrency limit is saved but not effective.')).toBeVisible()
+ const after=await (await request.get(base+'/admin/config',{headers})).json()
+ expect(after.values).toEqual({service_name:'Real UI inference',public_limit_concurrency:24})
+ expect(after.effective).toEqual({service_name:'Real UI inference',public_limit_concurrency:64})
+ const stale=await request.patch(base+'/admin/config',{headers,data:{revision:before.revision,changes:{service_name:'Overwrite'}}})
+ expect(stale.status()).toBe(409)
+ expect((await request.patch(base+'/admin/config',{data:{revision:after.revision,changes:{service_name:'Unauthorized'}}})).status()).toBe(401)
+ expect((await (await request.get(base+'/admin/config',{headers})).json()).values).toEqual(after.values)
+ await page.reload(); await page.getByRole('tab',{name:'Settings',exact:true}).click()
+ await expect(page.getByLabel('Service name',{exact:true})).toHaveValue('Real UI inference')
+ await page.screenshot({path:'test-results/admin-settings-real-python.png',fullPage:true})
+})
