@@ -63,7 +63,7 @@ def read_sensors():
         else:
             try: thermal = _thermal_from_processinfo()
             except Exception: thermal = 'critical'
-        out = dict(on_ac=on_ac, battery_pct=pct, thermal_state=thermal, user_active=idle < 120)
+        out = dict(on_ac=on_ac, battery_pct=pct, thermal_state=thermal, user_active=idle < 120, idle_seconds=idle)
         try: out['metrics'] = read_metrics()
         except Exception: pass
         return out
