@@ -28,6 +28,8 @@ Nocturne runs overnight inference on idle Macs. A small gateway coordinates work
 
 One small coordinator (the **gateway**) takes requests and hands each one to a single idle Mac (a **worker**). Each request runs entirely on one Mac; there is no tensor parallelism. Macs only work inside a night window, when nobody is using them, when they are cool, and when they are on the charger or have enough battery.
 
+![Nocturne admin dashboard with machine names and connection details redacted](docs/images/admin-dashboard.png)
+
 ```
 clients ──HTTPS──> gateway :8700 (public API)
                    gateway :8701 (workers, via SSH tunnel) <── Mac: worker agent + llama-server
